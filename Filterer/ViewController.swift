@@ -8,9 +8,11 @@
 
 import UIKit
 
-class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate {
 
     var filteredImage: UIImage?
+    
+    @IBOutlet var scrollView: UIScrollView!
     
     @IBOutlet var imageView: UIImageView!
     
@@ -20,11 +22,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     
     @IBOutlet var filterButton: UIButton!
     
+    @IBOutlet var zoomTapGestureRecognizer: UITapGestureRecognizer!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // set params here so they are only set once instead of each time the functions are called below
         secondaryMenu.backgroundColor = UIColor.white.withAlphaComponent(0.5)
         secondaryMenu.translatesAutoresizingMaskIntoConstraints = false
+        
+        // number of taps
+        // zoomTapGestureRecognizer.numberOfTapsRequired = 2
     }
 
     override func didReceiveMemoryWarning() {
@@ -128,6 +135,16 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
         self.secondaryMenu.alpha = 0
         UIView.animate(withDuration: 0.4) {
             self.secondaryMenu.alpha = 1
+        }
+    }
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return imageView
+    }
+    
+    @IBAction func onTap(_ sender: UITapGestureRecognizer) {
+        UIView.animate(withDuration: 0.4) {
+            self.scrollView.zoomScale *= 1.5
         }
     }
 }
