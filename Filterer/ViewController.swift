@@ -13,15 +13,10 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     var filteredImage: UIImage?
     
     @IBOutlet var scrollView: UIScrollView!
-    
     @IBOutlet var imageView: UIImageView!
-    
     @IBOutlet var secondaryMenu: UIView!
-    
     @IBOutlet var bottomMenu: UIView!
-    
     @IBOutlet var filterButton: UIButton!
-    
     @IBOutlet var zoomTapGestureRecognizer: UITapGestureRecognizer!
     
     override func viewDidLoad() {
@@ -145,6 +140,13 @@ class ViewController: UIViewController, UIImagePickerControllerDelegate, UINavig
     @IBAction func onTap(_ sender: UITapGestureRecognizer) {
         UIView.animate(withDuration: 0.4) {
             self.scrollView.zoomScale *= 1.5
+        }
+    }
+    
+    // Called for ALL segue events
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "PresentSocial" {
+            print("Prepare for Social Seque")
         }
     }
 }
